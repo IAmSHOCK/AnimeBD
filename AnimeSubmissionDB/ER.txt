@@ -1,0 +1,15 @@
+USER (_ UserId _, Name, Login, BirthDate, . Age ., Sex, Phone ?, Email, AvgRating, HighestRating, LowestRating)
+ANIME(_ AnimeId _, Name, StartDate, FinishedDate ?, NumEpisodes, {Genre}, Rating ?)
+STUDIO(_ StudioId _, Name, { Location (Address(Street, Floor ?, PostCode)) })
+VOICE_ACTOR(_ VoiceActorId _, Name, BirthDate, Email ?, . Age ., Sex)
+SOURCE(_ SourceId _, {Creator}, DataStarted, DateFinished ?, Type)
+
+SOURCE == 1 == <Originates> -- 1 -- ANIME 
+STUDIO == N == <Employes(Wage)> == M == VOICE_ACTOR
+STUDIO == 1 == <Made> == M == ANIME
+VOICE_ACTOR == N == <Participates> -- M -- ANIME
+USER -- N -- <Rates(Rating)> -- M -- ANIME
+USER -- N -- <Completed> -- M -- ANIME
+USER -- N -- <PlanToWatch> -- M -- ANIME
+USER -- N -- <Watching> -- M -- ANIME
+ANIME --------- << HAS >> EPISODE(_ Number _, Duration)

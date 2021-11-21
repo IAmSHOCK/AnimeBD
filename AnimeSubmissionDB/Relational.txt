@@ -1,0 +1,119 @@
+table USER
+(
+    _ UserId _ int,
+    Name varchar,
+    Login varchar, // Unique
+    BirthDate date,
+    Sex Enum,
+    Phone ? varchar,
+    Email varchar,
+    AvgRating float,
+    HighestRating float, 
+    LowestRating float
+)
+
+table ANIME
+(
+    _ AnimeId _ int,
+    Name varchar, // Unique
+    StartDate date, 
+    FinishedDate ? date,
+    NumEpisodes int, 
+    Rating ? float,
+    SourceId Int --> SOURCE.SourceId,
+    StudioId Int --> STUDIO.StudioId
+)
+
+table GENRE 
+(
+  _ Label _ varchar,
+  _ AnimeId _ int --> ANIME.AnimeId
+)
+
+table STUDIO
+(
+    _ StudioId _ int, 
+    Name varchar
+)
+
+table LOCATION 
+(   
+    _ StudioId _ int --> STUDIO.StudioId,
+    _ AddressId _ int --> ADDRESS.AddressId
+)
+
+table ADDRESS 
+(
+    _ AddressId _ int, 
+    Street varchar,
+    Floor ? varchar,
+    PostCode varchar
+)
+
+table VOICE_ACTOR
+(
+    _ VoiceActorId _ int, 
+    Name varchar, 
+    BirthDate date, 
+    Email ? varchar,
+    Sex Enum
+)
+
+table SOURCE
+(
+    _ SourceId _ int, 
+    DataStarted date, 
+    DateFinished ? date, 
+    Type varchar
+)
+
+table CREATOR 
+(   
+    _ Name _ varchar,	
+    _ SourceId _ int --> SOURCE.SourceId
+)
+
+table EMPLOYES 
+(
+    Wage int,
+    _ StudioId _ int --> STUDIO.StudioId,
+    _ VoiceActorId _ int --> VOICE_ACTOR.VoiceActorId
+)
+
+table PARTICIPATED
+(
+    _ VoiceActorId _ int --> VOICE_ACTOR.VoiceActorId,
+    _ AnimeId _ int --> ANIME.AnimeId
+)
+
+table RATES
+(
+    _ UserId _ int --> USER.UserId,
+    _ AnimeId _ int --> ANIME.AnimeId,
+    Rating int
+)
+
+table COMPLETED
+(
+    _ UserId _ int --> USER.UserId,
+    _ AnimeId _ int --> ANIME.AnimeId
+)
+
+table PLAN_TO_WATCH
+(
+    _ UserId _ int --> USER.UserId,
+    _ AnimeId _ int --> ANIME.AnimeId
+)
+
+table WATCHING
+(
+    _ UserId _ int --> USER.UserId,
+    _ AnimeId _ int --> ANIME.AnimeId
+)
+
+table EPISODE
+(
+    _ AnimeId _ int --> ANIME.AnimeId,
+    _ Number _ int,
+    Duration int
+)
